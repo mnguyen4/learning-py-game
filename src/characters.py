@@ -4,8 +4,8 @@ from pygame.locals import *
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("car2.png")
-        self.surf = pygame.Surface((50, 100))
+        self.image = pygame.image.load("resources/car2.png")
+        self.surf = pygame.Surface((68, 100))
         self.rect = self.surf.get_rect(center=(random.randint(40, 360), 0))
     
     def move(self):
@@ -20,8 +20,8 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("car1.png")
-        self.surf = pygame.Surface((54, 100))
+        self.image = pygame.image.load("resources/car1.png")
+        self.surf = pygame.Surface((69, 100))
         self.rect = self.surf.get_rect(center=(150, 500))
     
     def update(self):
