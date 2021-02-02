@@ -6,3 +6,7 @@ Learning how to create a game in Python.
 
 # Installing pygame
 ```pip install pygame```
+
+# Whitelist pygame in VSCode
+Open the Settings for the Python Extension and go to Python > Linting: Pylint Args.
+Add ```--extension-pkg-whitelist=pygame```
