@@ -59,8 +59,8 @@ class Player(pygame.sprite.Sprite):
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
-        self.image = game_state.BULLET_IMG
-        self.surf = pygame.Surface((5, 15))
+        self.image = game_state.BULLETS[game_state.POWER]["image"]
+        self.surf = pygame.Surface(game_state.BULLETS[game_state.POWER]["dim"])
         self.rect = self.surf.get_rect(center=pos)
     
     def move(self):

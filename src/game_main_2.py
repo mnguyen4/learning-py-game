@@ -48,7 +48,7 @@ pygame.time.set_timer(game_state.INC_SPEED, 1000)
 while True:
     for event in pygame.event.get():
         if event.type == game_state.INC_SPEED:
-            game_state.SPEED += 0.1
+            game_state.SPEED += 0.05
         if event.type == game_state.SPAWN_ENEMY:
             e2 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
             enemies.add(e2)
@@ -86,6 +86,8 @@ while True:
     if pygame.sprite.groupcollide(bullets, enemies, True, True):
         pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
         game_state.SCORE += 10
+        power = game_state.SCORE // 100
+        game_state.POWER = power if power < 4 else 4
 
     fps.tick(60)
     pygame.display.update()
