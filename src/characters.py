@@ -8,7 +8,7 @@ class Lane(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load("resources/lane.png")
         self.surf = pygame.Surface((20, 40))
-        self.rect = self.surf.get_rect(center=(190, y_pos))
+        self.rect = self.surf.get_rect(center=(200, y_pos))
     def move(self):
         self.rect.move_ip(0, 5)
         if (self.rect.bottom > game_state.SCREEN_HEIGHT + 40):

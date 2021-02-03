@@ -55,9 +55,6 @@ while True:
             sys.exit()
     # display background
     DISPLAY_SURF.blit(background, (0,0))
-    # display score
-    scores = font_small.render(str(game_state.SCORE), True, BLUE)
-    DISPLAY_SURF.blit(scores, (190,10))
     # move and redraw
     for lane in lanes:
         DISPLAY_SURF.blit(lane.image, lane.rect)
@@ -65,6 +62,9 @@ while True:
     for entity in all_sprites:
         DISPLAY_SURF.blit(entity.image, entity.rect)
         entity.move()
+    # display score
+    scores = font_small.render(str(game_state.SCORE), True, BLUE)
+    DISPLAY_SURF.blit(scores, (190,10))
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
