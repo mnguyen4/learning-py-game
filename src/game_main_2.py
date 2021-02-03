@@ -26,7 +26,7 @@ DISPLAY_SURF.fill(WHITE)
 pygame.display.set_caption("The Game")
 # draw
 p1 = Player()
-e1 = Enemy(game_state.ENEMIES[random.randint(0, 1)])
+e1 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
 lane1 = Lane(y_pos=0)
 lane2 = Lane(y_pos=160)
 lane3 = Lane(y_pos=320)
@@ -50,7 +50,7 @@ while True:
         if event.type == game_state.INC_SPEED:
             game_state.SPEED += 0.1
         if event.type == game_state.SPAWN_ENEMY:
-            e2 = Enemy(game_state.ENEMIES[random.randint(0, 1)])
+            e2 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
             enemies.add(e2)
             all_sprites.add(e2)
         if event.type == game_state.SHOOT:

@@ -10,13 +10,19 @@ INC_SPEED = pygame.USEREVENT + 1
 SPAWN_ENEMY = pygame.USEREVENT + 2
 SHOOT = pygame.USEREVENT + 3
 RELOAD = pygame.USEREVENT + 4
+# image cache
 ENEMIES = [
     {
-        "path": "resources/car2.png",
+        "image": pygame.image.load("resources/car2.png"),
         "dim": (68, 100)
     },
     {
-        "path": "resources/motorcycle.png",
+        "image": pygame.image.load("resources/motorcycle.png"),
         "dim": (20, 60)
+    },
+    {
+        "image": pygame.image.load("resources/tractor.png"),
+        "dim": (78, 100)
     }
 ]
+BULLET_IMG = pygame.image.load("resources/bullet.png")

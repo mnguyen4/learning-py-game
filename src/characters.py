@@ -17,7 +17,7 @@ class Lane(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, enemy):
         super().__init__()
-        self.image = pygame.image.load(enemy["path"])
+        self.image = enemy["image"]
         self.surf = pygame.Surface(enemy["dim"])
         self.rect = self.surf.get_rect(center=(random.randint(40, game_state.SCREEN_WIDTH - 40), 0))
     
@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
-        self.image = pygame.image.load("resources/bullet.png")
+        self.image = game_state.BULLET_IMG
         self.surf = pygame.Surface((5, 15))
         self.rect = self.surf.get_rect(center=pos)
     
