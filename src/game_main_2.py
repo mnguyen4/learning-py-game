@@ -3,6 +3,7 @@ import sys
 import time
 from pygame.locals import *
 from characters import *
+import game_state
 
 # initialization
 pygame.init()
@@ -13,16 +14,31 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
-#SCREEN_WIDTH, SCREEN_HEIGHT = getDimension()
-DISPLAY_SURF = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+# setting font
+font = pygame.font.SysFont("Verdana", 60)
+font_small = pygame.font.SysFont("Verdana", 20)
+game_over = font.render("Game Over!", True, BLACK)
+
+background = pygame.image.load("resources/background.png")
+# create display surface
+DISPLAY_SURF = pygame.display.set_mode((game_state.SCREEN_WIDTH, game_state.SCREEN_HEIGHT))
 DISPLAY_SURF.fill(WHITE)
 pygame.display.set_caption("The Game")
 # draw
 p1 = Player()
 e1 = Enemy()
+lane1 = Lane(y_pos=0)
+lane2 = Lane(y_pos=160)
+lane3 = Lane(y_pos=320)
+lane4 = Lane(y_pos=480)
 # sprite group
 enemies = pygame.sprite.Group()
 enemies.add(e1)
+lanes = pygame.sprite.Group()
+lanes.add(lane1)
+lanes.add(lane2)
+lanes.add(lane3)
+lanes.add(lane4)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(p1)
 all_sprites.add(e1)
@@ -31,21 +47,29 @@ INC_SPEED = pygame.USEREVENT + 1
 pygame.time.set_timer(INC_SPEED, 1000)
 
 while True:
-    DISPLAY_SURF.fill(WHITE)
     for event in pygame.event.get():
         if event.type == INC_SPEED:
-            print("Speed: ", SPEED)
-            SPEED += 5
+            game_state.SPEED += 0.1
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+    # display background
+    DISPLAY_SURF.blit(background, (0,0))
+    # display score
+    scores = font_small.render(str(game_state.SCORE), True, BLUE)
+    DISPLAY_SURF.blit(scores, (190,10))
     # move and redraw
+    for lane in lanes:
+        DISPLAY_SURF.blit(lane.image, lane.rect)
+        lane.move()
     for entity in all_sprites:
         DISPLAY_SURF.blit(entity.image, entity.rect)
         entity.move()
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
+        pygame.mixer.Sound("resources/pop.wav").play()
         DISPLAY_SURF.fill(RED)
+        DISPLAY_SURF.blit(game_over, (40, 250))
         pygame.display.update()
         for entity in all_sprites:
             entity.kill()
