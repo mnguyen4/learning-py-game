@@ -6,7 +6,7 @@ import game_state
 class Lane(pygame.sprite.Sprite):
     def __init__(self, y_pos):
         super().__init__()
-        self.image = pygame.image.load("resources/lane.png")
+        self.image = game_state.LANE_IMG
         self.surf = pygame.Surface((20, 40))
         self.rect = self.surf.get_rect(center=(200, y_pos))
     def move(self):
@@ -34,7 +34,7 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("resources/car1.png")
+        self.image = game_state.PLAYER_IMG
         self.surf = pygame.Surface((69, 100))
         self.rect = self.surf.get_rect(center=(160, 500))
     

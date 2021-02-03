@@ -26,3 +26,5 @@ ENEMIES = [
     }
 ]
 BULLET_IMG = pygame.image.load("resources/bullet.png")
+LANE_IMG = pygame.image.load("resources/lane.png")
+PLAYER_IMG = pygame.image.load("resources/car1.png")
