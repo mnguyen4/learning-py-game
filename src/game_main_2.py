@@ -26,7 +26,7 @@ DISPLAY_SURF.fill(WHITE)
 pygame.display.set_caption("The Game")
 # draw
 p1 = Player()
-e1 = Enemy()
+e1 = Enemy(game_state.ENEMIES[random.randint(0, 1)])
 lane1 = Lane(y_pos=0)
 lane2 = Lane(y_pos=160)
 lane3 = Lane(y_pos=320)
@@ -42,14 +42,23 @@ lanes.add(lane4)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(p1)
 all_sprites.add(e1)
-# user event
-INC_SPEED = pygame.USEREVENT + 1
-pygame.time.set_timer(INC_SPEED, 1000)
+bullets = pygame.sprite.Group()
+pygame.time.set_timer(game_state.INC_SPEED, 1000)
 
 while True:
     for event in pygame.event.get():
-        if event.type == INC_SPEED:
+        if event.type == game_state.INC_SPEED:
             game_state.SPEED += 0.1
+        if event.type == game_state.SPAWN_ENEMY:
+            e2 = Enemy(game_state.ENEMIES[random.randint(0, 1)])
+            enemies.add(e2)
+            all_sprites.add(e2)
+        if event.type == game_state.SHOOT:
+            bullet = Bullet((p1.rect.centerx, p1.rect.top))
+            all_sprites.add(bullet)
+            bullets.add(bullet)
+        if event.type == game_state.RELOAD:
+            game_state.CAN_SHOOT = True
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
@@ -63,8 +72,8 @@ while True:
         DISPLAY_SURF.blit(entity.image, entity.rect)
         entity.move()
     # display score
-    scores = font_small.render(str(game_state.SCORE), True, BLUE)
-    DISPLAY_SURF.blit(scores, (190,10))
+    scores = font_small.render("Score: " + str(game_state.SCORE), True, BLUE)
+    DISPLAY_SURF.blit(scores, (170,10))
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
@@ -74,6 +83,9 @@ while True:
         for entity in all_sprites:
             entity.kill()
         time.sleep(2)
+    if pygame.sprite.groupcollide(bullets, enemies, True, True):
+        pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
+        game_state.SCORE += 10
 
     fps.tick(60)
     pygame.display.update()
