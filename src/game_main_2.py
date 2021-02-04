@@ -27,19 +27,14 @@ pygame.display.set_caption("The Game")
 # draw
 p1 = Player()
 e1 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
-Y_SPACING = game_state.SCREEN_HEIGHT / 4
-lane1 = Lane(y_pos=0)
-lane2 = Lane(y_pos=Y_SPACING * 1)
-lane3 = Lane(y_pos=Y_SPACING * 2)
-lane4 = Lane(y_pos=Y_SPACING * 3)
 # sprite group
 enemies = pygame.sprite.Group()
 enemies.add(e1)
 lanes = pygame.sprite.Group()
-lanes.add(lane1)
-lanes.add(lane2)
-lanes.add(lane3)
-lanes.add(lane4)
+Y_SPACING = game_state.SCREEN_HEIGHT / 4
+for i in range(4):
+    lane = Lane(y_pos=Y_SPACING * i)
+    lanes.add(lane)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(p1)
 all_sprites.add(e1)
