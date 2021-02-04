@@ -3,6 +3,26 @@ import sys
 from pygame.locals import *
 from characters import *
 
+def title(game_surface, background):
+    fps = pygame.time.Clock()
+    font = pygame.font.SysFont("Verdana", 40)
+    small_font = pygame.font.SysFont("Verdana", 20)
+    title_txt = font.render("The Game", True, game_state.BLACK)
+    game_surface.blit(background, (0, 0))
+    game_surface.blit(title_txt, title_txt.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3)))
+    message_txt = small_font.render("Press any key to start", True, game_state.BLACK)
+    game_surface.blit(message_txt, message_txt.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 2)))
+    display_title = True
+    while display_title:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                display_title = False
+        fps.tick(game_state.FRAME_RATE)
+        pygame.display.update()
+
 def menu(game_surface):
     fps = pygame.time.Clock()
     font = pygame.font.SysFont("Verdana", 40)
@@ -11,7 +31,7 @@ def menu(game_surface):
     resume_txt = small_font.render("Resume", True, game_state.BLACK)
     quit_txt = small_font.render("Quit", True, game_state.BLACK)
     game_surface.fill(game_state.BLACK)
-    game_surface.blit(menu_txt, (game_state.SCREEN_WIDTH / 2 - menu_txt.get_width() / 2, game_state.SCREEN_HEIGHT / 3))
+    game_surface.blit(menu_txt, menu_txt.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3)))
     resume_btn = Button(resume_txt, game_state.GREEN)
     resume_btn.rect = resume_btn.surf.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 2))
     game_surface.blit(resume_btn.surf, resume_btn.rect)
@@ -28,7 +48,6 @@ def menu(game_surface):
                 if resume_btn.rect.left <= mouse[0] <= resume_btn.rect.right and resume_btn.rect.top <= mouse[1] <= resume_btn.rect.bottom:
                     game_state.MENU = False
                 if quit_btn.rect.left <= mouse[0] <= quit_btn.rect.right and quit_btn.rect.top <= mouse[1] <= quit_btn.rect.bottom:
-                    pygame.quit()
-                    sys.exit()
+                    pygame.event.post(pygame.event.Event(QUIT))
         fps.tick(game_state.FRAME_RATE)
         pygame.display.update()

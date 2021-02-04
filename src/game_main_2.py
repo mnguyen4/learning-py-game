@@ -18,6 +18,7 @@ background = pygame.image.load("resources/background.png")
 DISPLAY_SURF = pygame.display.set_mode((game_state.SCREEN_WIDTH, game_state.SCREEN_HEIGHT))
 DISPLAY_SURF.fill(game_state.WHITE)
 pygame.display.set_caption("The Game")
+game_functions.title(DISPLAY_SURF, background)
 # draw
 p1 = Player()
 e1 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
