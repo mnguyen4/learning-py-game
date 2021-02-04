@@ -1,11 +1,20 @@
 import pygame
 
+# colors
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+# basic properties
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
+FRAME_RATE = 60
 SPEED = 0
 SCORE = 0
 CAN_SHOOT = True
 POWER = 0
+MENU = False
 # user events
 INC_SPEED = pygame.USEREVENT + 1
 SPAWN_ENEMY = pygame.USEREVENT + 2

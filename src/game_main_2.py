@@ -4,25 +4,19 @@ import time
 from pygame.locals import *
 from characters import *
 import game_state
+import game_functions
 
 # initialization
 pygame.init()
-FRAME_RATE = 60
 fps = pygame.time.Clock()
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
 # setting font
 font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
-game_over = font.render("Game Over!", True, BLACK)
-
+game_over = font.render("Game Over!", True, game_state.BLACK)
 background = pygame.image.load("resources/background.png")
 # create display surface
 DISPLAY_SURF = pygame.display.set_mode((game_state.SCREEN_WIDTH, game_state.SCREEN_HEIGHT))
-DISPLAY_SURF.fill(WHITE)
+DISPLAY_SURF.fill(game_state.WHITE)
 pygame.display.set_caption("The Game")
 # draw
 p1 = Player()
@@ -65,15 +59,15 @@ while True:
         DISPLAY_SURF.blit(entity.image, entity.rect)
         entity.move()
     # display score
-    scores = font_small.render("Score: " + str(game_state.SCORE), True, BLUE)
-    DISPLAY_SURF.blit(scores, (game_state.SCREEN_WIDTH / 2 - 30, 10))
+    scores = font_small.render("Score: " + str(game_state.SCORE), True, game_state.BLUE)
+    DISPLAY_SURF.blit(scores, scores.get_rect(center=(game_state.SCREEN_WIDTH / 2, 10)))
     # scale speed on score
     game_state.SPEED = (game_state.SCORE // 100) + 5
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
-        DISPLAY_SURF.fill(RED)
-        DISPLAY_SURF.blit(game_over, (40, game_state.SCREEN_HEIGHT / 3))
+        DISPLAY_SURF.fill(game_state.RED)
+        DISPLAY_SURF.blit(game_over, game_over.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3)))
         pygame.display.update()
         for entity in all_sprites:
             entity.kill()
@@ -83,6 +77,10 @@ while True:
         game_state.SCORE += 10
         power = game_state.SCORE // 100
         game_state.POWER = power if power < 4 else 4
+    pressed_keys = pygame.key.get_pressed()
+    if pressed_keys[K_ESCAPE]:
+        game_state.MENU = True
+        game_functions.menu(DISPLAY_SURF)
 
-    fps.tick(60)
+    fps.tick(game_state.FRAME_RATE)
     pygame.display.update()

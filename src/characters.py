@@ -70,3 +70,10 @@ class Bullet(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+
+class Button(pygame.sprite.Sprite):
+    def __init__(self, btn_text, btn_color):
+        super().__init__()
+        self.surf = pygame.Surface((game_state.SCREEN_WIDTH / 2, 40))
+        self.surf.fill(btn_color)
+        self.surf.blit(btn_text, btn_text.get_rect(center=(self.surf.get_width() / 2, self.surf.get_height() / 2)))
