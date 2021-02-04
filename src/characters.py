@@ -19,14 +19,14 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.image = enemy["image"]
         self.surf = pygame.Surface(enemy["dim"])
-        self.rect = self.surf.get_rect(center=(random.randint(40, game_state.SCREEN_WIDTH - 40), 0))
+        self.rect = self.surf.get_rect(center=(random.randint(40, game_state.SCREEN_WIDTH - 40), self.surf.get_height() * -1))
     
     def move(self):
         self.rect.move_ip(0, game_state.SPEED)
-        if (self.rect.bottom > game_state.SCREEN_HEIGHT):
+        if (self.rect.bottom > game_state.SCREEN_HEIGHT + self.surf.get_height()):
             game_state.SCORE += 1
             self.rect.top = 0
-            self.rect.center = (random.randint(40, game_state.SCREEN_WIDTH - 40), 0)
+            self.rect.center = (random.randint(40, game_state.SCREEN_WIDTH - 40), self.surf.get_height() * -1)
     
     def draw(self, surface):
         surface.blit(self.image, self.rect)
