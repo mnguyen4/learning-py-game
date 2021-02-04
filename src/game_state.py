@@ -2,7 +2,7 @@ import pygame
 
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
-SPEED = 5
+SPEED = 0
 SCORE = 0
 CAN_SHOOT = True
 POWER = 0

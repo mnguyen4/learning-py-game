@@ -27,10 +27,11 @@ pygame.display.set_caption("The Game")
 # draw
 p1 = Player()
 e1 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
+Y_SPACING = game_state.SCREEN_HEIGHT / 4
 lane1 = Lane(y_pos=0)
-lane2 = Lane(y_pos=160)
-lane3 = Lane(y_pos=320)
-lane4 = Lane(y_pos=480)
+lane2 = Lane(y_pos=Y_SPACING * 1)
+lane3 = Lane(y_pos=Y_SPACING * 2)
+lane4 = Lane(y_pos=Y_SPACING * 3)
 # sprite group
 enemies = pygame.sprite.Group()
 enemies.add(e1)
@@ -43,12 +44,9 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(p1)
 all_sprites.add(e1)
 bullets = pygame.sprite.Group()
-pygame.time.set_timer(game_state.INC_SPEED, 1000)
 
 while True:
     for event in pygame.event.get():
-        if event.type == game_state.INC_SPEED:
-            game_state.SPEED += 0.05
         if event.type == game_state.SPAWN_ENEMY:
             e2 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
             enemies.add(e2)
@@ -73,12 +71,14 @@ while True:
         entity.move()
     # display score
     scores = font_small.render("Score: " + str(game_state.SCORE), True, BLUE)
-    DISPLAY_SURF.blit(scores, (170,10))
+    DISPLAY_SURF.blit(scores, (game_state.SCREEN_WIDTH / 2 - 30, 10))
+    # scale speed on score
+    game_state.SPEED = (game_state.SCORE // 100) + 5
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
         DISPLAY_SURF.fill(RED)
-        DISPLAY_SURF.blit(game_over, (40, 250))
+        DISPLAY_SURF.blit(game_over, (40, game_state.SCREEN_HEIGHT / 3))
         pygame.display.update()
         for entity in all_sprites:
             entity.kill()
