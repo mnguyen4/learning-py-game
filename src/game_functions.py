@@ -5,11 +5,10 @@ from characters import *
 
 def title(game_surface, background):
     fps = pygame.time.Clock()
-    font = pygame.font.SysFont("Verdana", 40)
-    small_font = pygame.font.SysFont("Verdana", 20)
-    title_txt = font.render("The Game", True, game_state.BLACK)
     game_surface.blit(background, (0, 0))
-    game_surface.blit(title_txt, title_txt.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3)))
+    title_img = Title()
+    game_surface.blit(title_img.image, title_img.rect)
+    small_font = pygame.font.SysFont("Verdana", 20)
     message_txt = small_font.render("Press any key to start", True, game_state.BLACK)
     game_surface.blit(message_txt, message_txt.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 2)))
     display_title = True

@@ -77,3 +77,13 @@ class Button(pygame.sprite.Sprite):
         self.surf = pygame.Surface((game_state.SCREEN_WIDTH / 2, 40))
         self.surf.fill(btn_color)
         self.surf.blit(btn_text, btn_text.get_rect(center=(self.surf.get_width() / 2, self.surf.get_height() / 2)))
+
+class Title(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = game_state.TITLE_IMG
+        self.surf = pygame.Surface((400, 100))
+        self.rect = self.surf.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3))
+    
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
