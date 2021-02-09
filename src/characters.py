@@ -84,6 +84,10 @@ class Title(pygame.sprite.Sprite):
         self.image = game_state.TITLE_IMG
         self.surf = pygame.Surface((400, 100))
         self.rect = self.surf.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3))
-    
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
+
+class GameOver(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = game_state.GAMEOVER_IMG
+        self.surf = pygame.Surface((400, 100))
+        self.rect = self.surf.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3))

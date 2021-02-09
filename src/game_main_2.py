@@ -10,9 +10,8 @@ import game_functions
 pygame.init()
 fps = pygame.time.Clock()
 # setting font
-font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
-game_over = font.render("Game Over!", True, game_state.BLACK)
+game_over = GameOver()
 background = pygame.image.load("resources/background.png")
 # create display surface
 DISPLAY_SURF = pygame.display.set_mode((game_state.SCREEN_WIDTH, game_state.SCREEN_HEIGHT))
@@ -68,7 +67,7 @@ while True:
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
         DISPLAY_SURF.fill(game_state.RED)
-        DISPLAY_SURF.blit(game_over, game_over.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3)))
+        DISPLAY_SURF.blit(game_over.image, game_over.rect)
         pygame.display.update()
         for entity in all_sprites:
             entity.kill()

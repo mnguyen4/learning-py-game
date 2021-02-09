@@ -60,3 +60,4 @@ BULLETS = [
 LANE_IMG = pygame.image.load("resources/lane.png")
 PLAYER_IMG = pygame.image.load("resources/car1.png")
 TITLE_IMG = pygame.image.load("resources/title.png")
+GAMEOVER_IMG = pygame.image.load("resources/gameover.png")
