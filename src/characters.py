@@ -52,7 +52,6 @@ class Player(pygame.sprite.Sprite):
                 pygame.time.set_timer(game_state.RELOAD, 1000)
                 pygame.event.post(pygame.event.Event(game_state.SHOOT))
 
-    
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
@@ -72,11 +71,11 @@ class Bullet(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, btn_text, btn_color):
+    def __init__(self, image, y_pos):
         super().__init__()
+        self.image = image
         self.surf = pygame.Surface((game_state.SCREEN_WIDTH / 2, 40))
-        self.surf.fill(btn_color)
-        self.surf.blit(btn_text, btn_text.get_rect(center=(self.surf.get_width() / 2, self.surf.get_height() / 2)))
+        self.rect = self.surf.get_rect(center=(game_state.SCREEN_WIDTH / 2, y_pos))
 
 class Title(pygame.sprite.Sprite):
     def __init__(self):

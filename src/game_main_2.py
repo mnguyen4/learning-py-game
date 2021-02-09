@@ -36,6 +36,10 @@ bullets = pygame.sprite.Group()
 
 while True:
     for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                game_state.MENU = True
+                game_functions.menu(DISPLAY_SURF)
         if event.type == game_state.SPAWN_ENEMY:
             e2 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
             enemies.add(e2)
@@ -77,10 +81,6 @@ while True:
         game_state.SCORE += 10
         power = game_state.SCORE // 100
         game_state.POWER = power if power < 4 else 4
-    pressed_keys = pygame.key.get_pressed()
-    if pressed_keys[K_ESCAPE]:
-        game_state.MENU = True
-        game_functions.menu(DISPLAY_SURF)
 
     fps.tick(game_state.FRAME_RATE)
     pygame.display.update()
