@@ -47,10 +47,7 @@ class Player(pygame.sprite.Sprite):
             if pressed_keys[K_RIGHT]:
                 self.rect.move_ip(5, 0)
         if pressed_keys[K_SPACE]:
-            if game_state.CAN_SHOOT:
-                game_state.CAN_SHOOT = False
-                pygame.time.set_timer(game_state.RELOAD, 1000)
-                pygame.event.post(pygame.event.Event(game_state.SHOOT))
+            pygame.event.post(pygame.event.Event(game_state.SHOOT))
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -58,12 +55,12 @@ class Player(pygame.sprite.Sprite):
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
-        self.image = game_state.BULLETS[game_state.POWER]["image"]
-        self.surf = pygame.Surface(game_state.BULLETS[game_state.POWER]["dim"])
+        self.image = game_state.BULLETS[game_state.BULLET_POWER]["image"]
+        self.surf = pygame.Surface(game_state.BULLETS[game_state.BULLET_POWER]["dim"])
         self.rect = self.surf.get_rect(center=pos)
     
     def move(self):
-        self.rect.move_ip(0, -5)
+        self.rect.move_ip(0, -5 - game_state.BULLET_SPEED)
         if (self.rect.top < 0):
             self.kill()
 
@@ -71,11 +68,11 @@ class Bullet(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, image, y_pos):
+    def __init__(self, image, x_pos, y_pos):
         super().__init__()
         self.image = image
-        self.surf = pygame.Surface((game_state.SCREEN_WIDTH / 2, 40))
-        self.rect = self.surf.get_rect(center=(game_state.SCREEN_WIDTH / 2, y_pos))
+        self.surf = pygame.Surface((image.get_width(), image.get_height()))
+        self.rect = self.surf.get_rect(center=(x_pos, y_pos))
 
 class Title(pygame.sprite.Sprite):
     def __init__(self):
