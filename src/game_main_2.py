@@ -9,6 +9,8 @@ import game_functions
 # initialization
 pygame.init()
 fps = pygame.time.Clock()
+game_state.RELOAD = game_state.FRAME_RATE
+game_state.TIMER = game_state.RELOAD
 # setting font
 font_small = pygame.font.SysFont("Verdana", 20)
 game_over = GameOver()
@@ -55,11 +57,14 @@ while True:
             enemies.add(e2)
             all_sprites.add(e2)
         if event.type == game_state.SHOOT:
-            if game_state.RELOAD >= game_state.FIRE_RATE:
-                game_state.RELOAD = 0
+            if game_state.TIMER >= game_state.RELOAD:
+                game_state.TIMER = 0
+                game_state.FIRED = 0
+            if game_state.FIRED < game_state.BULLET_RATE:
                 bullet = Bullet((p1.rect.centerx, p1.rect.top))
                 all_sprites.add(bullet)
                 bullets.add(bullet)
+                game_state.FIRED += 1
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
@@ -90,6 +95,6 @@ while True:
         game_state.SCORE += 25
 
     fps.tick(game_state.FRAME_RATE)
-    if game_state.RELOAD < game_state.FIRE_RATE:
-        game_state.RELOAD += 1
+    if game_state.TIMER < game_state.RELOAD:
+        game_state.TIMER += 1
     pygame.display.update()

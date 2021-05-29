@@ -75,10 +75,10 @@ def upgrade_menu(game_surface):
                         if power_btn.rect.left <= mouse[0] <= power_btn.rect.right and power_btn.rect.top <= mouse[1] <= power_btn.rect.bottom:
                             game_state.UPGRADE_PTS -= 1
                             game_state.BULLET_POWER += 1
-                    if game_state.FIRE_RATE > 20:
+                    if game_state.BULLET_RATE < 20:
                         if rate_btn.rect.left <= mouse[0] <= rate_btn.rect.right and rate_btn.rect.top <= mouse[1] <= rate_btn.rect.bottom:
                             game_state.UPGRADE_PTS -= 1
-                            game_state.FIRE_RATE -= 1
+                            game_state.BULLET_RATE += 1
                     if game_state.BULLET_SPEED < 30:
                         if speed_btn.rect.left <= mouse[0] <= speed_btn.rect.right and speed_btn.rect.top <= mouse[1] <= speed_btn.rect.bottom:
                             game_state.UPGRADE_PTS -= 1
