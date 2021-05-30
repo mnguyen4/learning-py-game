@@ -15,6 +15,7 @@ SCORE = 0
 CAN_SHOOT = True
 MENU = False
 UPGRADE_MENU = False
+TIMER_NS = 0
 # upgrades
 UPGRADE_SCORE = 100
 UPGRADE_PTS = 0

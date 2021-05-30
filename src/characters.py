@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 from pygame.locals import *
 import game_state
 
@@ -47,7 +48,9 @@ class Player(pygame.sprite.Sprite):
             if pressed_keys[K_RIGHT]:
                 self.rect.move_ip(5, 0)
         if pressed_keys[K_SPACE]:
-            pygame.event.post(pygame.event.Event(game_state.SHOOT))
+            if time.perf_counter_ns() - game_state.TIMER_NS >= 50000000:
+                game_state.TIMER_NS = time.perf_counter_ns()
+                pygame.event.post(pygame.event.Event(game_state.SHOOT))
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
