@@ -4,66 +4,72 @@ import time
 from pygame.locals import *
 from characters import *
 import game_state
+import game_functions
 
 # initialization
 pygame.init()
-FRAME_RATE = 60
 fps = pygame.time.Clock()
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
+game_state.RELOAD = game_state.FRAME_RATE
+game_state.TIMER = game_state.RELOAD
 # setting font
-font = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
-game_over = font.render("Game Over!", True, BLACK)
-
-background = pygame.image.load("resources/background.png")
+game_over = GameOver()
 # create display surface
 DISPLAY_SURF = pygame.display.set_mode((game_state.SCREEN_WIDTH, game_state.SCREEN_HEIGHT))
-DISPLAY_SURF.fill(WHITE)
+DISPLAY_SURF.fill(game_state.WHITE)
 pygame.display.set_caption("The Game")
+game_functions.title(DISPLAY_SURF)
 # draw
 p1 = Player()
 e1 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
-lane1 = Lane(y_pos=0)
-lane2 = Lane(y_pos=160)
-lane3 = Lane(y_pos=320)
-lane4 = Lane(y_pos=480)
 # sprite group
 enemies = pygame.sprite.Group()
 enemies.add(e1)
 lanes = pygame.sprite.Group()
-lanes.add(lane1)
-lanes.add(lane2)
-lanes.add(lane3)
-lanes.add(lane4)
+Y_SPACING = game_state.SCREEN_HEIGHT / 4
+for i in range(4):
+    lane = Lane(y_pos=Y_SPACING * i)
+    lanes.add(lane)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(p1)
 all_sprites.add(e1)
 bullets = pygame.sprite.Group()
-pygame.time.set_timer(game_state.INC_SPEED, 1000)
 
 while True:
     for event in pygame.event.get():
-        if event.type == game_state.INC_SPEED:
-            game_state.SPEED += 0.05
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse = pygame.mouse.get_pos()
+            if 0 <= mouse[0] <= 80 and 0 <= mouse[1] <= 40:
+                game_state.MENU = True
+                game_functions.menu(DISPLAY_SURF)
+            if game_state.SCREEN_WIDTH - 80 <= mouse[0] <= game_state.SCREEN_WIDTH and 0 <= mouse[1] <= 40:
+                game_state.UPGRADE_MENU = True
+                game_functions.upgrade_menu(DISPLAY_SURF)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                game_state.MENU = True
+                game_functions.menu(DISPLAY_SURF)
+            if event.key == pygame.K_u:
+                game_state.UPGRADE_MENU = True
+                game_functions.upgrade_menu(DISPLAY_SURF)
         if event.type == game_state.SPAWN_ENEMY:
             e2 = Enemy(game_state.ENEMIES[random.randint(0, 2)])
             enemies.add(e2)
             all_sprites.add(e2)
         if event.type == game_state.SHOOT:
-            bullet = Bullet((p1.rect.centerx, p1.rect.top))
-            all_sprites.add(bullet)
-            bullets.add(bullet)
-        if event.type == game_state.RELOAD:
-            game_state.CAN_SHOOT = True
+            if game_state.TIMER >= game_state.RELOAD:
+                game_state.TIMER = 0
+                game_state.FIRED = 0
+            if game_state.FIRED < game_state.BULLET_RATE:
+                bullet = Bullet((p1.rect.centerx, p1.rect.top))
+                all_sprites.add(bullet)
+                bullets.add(bullet)
+                game_state.FIRED += 1
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
     # display background
-    DISPLAY_SURF.blit(background, (0,0))
+    DISPLAY_SURF.blit(game_state.BG_IMG, (0,0))
     # move and redraw
     for lane in lanes:
         DISPLAY_SURF.blit(lane.image, lane.rect)
@@ -71,23 +77,24 @@ while True:
     for entity in all_sprites:
         DISPLAY_SURF.blit(entity.image, entity.rect)
         entity.move()
-    # display score
-    scores = font_small.render("Score: " + str(game_state.SCORE), True, BLUE)
-    DISPLAY_SURF.blit(scores, (170,10))
+    game_functions.draw_hud(DISPLAY_SURF)
+    game_functions.inc_upgrade()
+    # scale speed on score
+    game_state.SPEED = (game_state.SCORE // 1000) + 5
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
-        DISPLAY_SURF.fill(RED)
-        DISPLAY_SURF.blit(game_over, (40, 250))
+        DISPLAY_SURF.fill(game_state.RED)
+        DISPLAY_SURF.blit(game_over.image, game_over.rect)
         pygame.display.update()
         for entity in all_sprites:
             entity.kill()
         time.sleep(2)
     if pygame.sprite.groupcollide(bullets, enemies, True, True):
         pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
-        game_state.SCORE += 10
-        power = game_state.SCORE // 100
-        game_state.POWER = power if power < 4 else 4
+        game_state.SCORE += 25
 
-    fps.tick(60)
+    fps.tick(game_state.FRAME_RATE)
+    if game_state.TIMER < game_state.RELOAD:
+        game_state.TIMER += 1
     pygame.display.update()
