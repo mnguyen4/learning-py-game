@@ -84,10 +84,16 @@ def upgrade_menu(game_surface):
                             game_state.UPGRADE_PTS -= 1
                             game_state.BULLET_SPEED += 1
         upgrade_pts = font_small.render("Upgrade Points: " + str(game_state.UPGRADE_PTS), True, game_state.WHITE)
+        power_pts = font_small.render(str(game_state.BULLET_POWER), True, game_state.WHITE)
+        rate_pts = font_small.render(str(game_state.BULLET_RATE), True, game_state.WHITE)
+        speed_pts = font_small.render(str(game_state.BULLET_SPEED), True, game_state.WHITE)
         game_surface.fill(game_state.BLACK)
         game_surface.blit(power_btn.image, power_btn.rect)
+        game_surface.blit(power_pts, power_btn.rect)
         game_surface.blit(rate_btn.image, rate_btn.rect)
+        game_surface.blit(rate_pts, rate_btn.rect)
         game_surface.blit(speed_btn.image, speed_btn.rect)
+        game_surface.blit(speed_pts, speed_btn.rect)
         game_surface.blit(resume_btn.image, resume_btn.rect)
         game_surface.blit(upgrade_txt, upgrade_txt.get_rect(center=(game_state.SCREEN_WIDTH / 2, 40)))
         game_surface.blit(upgrade_pts, upgrade_pts.get_rect(center=(game_state.SCREEN_WIDTH / 2, upgrade_txt.get_rect().bottom + 30)))
