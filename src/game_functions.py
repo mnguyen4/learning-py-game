@@ -114,5 +114,6 @@ def draw_hud(game_surface):
     menu_btn = Button(game_state.MENU_IMG, 40, 20)
     game_surface.blit(menu_btn.image, menu_btn.rect)
     # display upgrade button
-    upgrade_btn = Button(game_state.UPGRADE_IMG, game_state.SCREEN_WIDTH - 40, 20)
-    game_surface.blit(upgrade_btn.image, upgrade_btn.rect)
+    if game_state.UPGRADE_PTS > 0:
+        upgrade_btn = Button(game_state.UPGRADE_IMG, game_state.SCREEN_WIDTH - 40, 20)
+        game_surface.blit(upgrade_btn.image, upgrade_btn.rect)

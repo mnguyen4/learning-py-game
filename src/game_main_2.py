@@ -42,14 +42,14 @@ while True:
             if 0 <= mouse[0] <= 80 and 0 <= mouse[1] <= 40:
                 game_state.MENU = True
                 game_functions.menu(DISPLAY_SURF)
-            if game_state.SCREEN_WIDTH - 80 <= mouse[0] <= game_state.SCREEN_WIDTH and 0 <= mouse[1] <= 40:
+            if game_state.SCREEN_WIDTH - 80 <= mouse[0] <= game_state.SCREEN_WIDTH and 0 <= mouse[1] <= 40 and game_state.UPGRADE_PTS > 0:
                 game_state.UPGRADE_MENU = True
                 game_functions.upgrade_menu(DISPLAY_SURF)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 game_state.MENU = True
                 game_functions.menu(DISPLAY_SURF)
-            if event.key == pygame.K_u:
+            if event.key == pygame.K_u and game_state.UPGRADE_PTS > 0:
                 game_state.UPGRADE_MENU = True
                 game_functions.upgrade_menu(DISPLAY_SURF)
         if event.type == game_state.SPAWN_ENEMY:
