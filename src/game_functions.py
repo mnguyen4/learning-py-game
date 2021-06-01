@@ -79,7 +79,7 @@ def upgrade_menu(game_surface):
                         if rate_btn.rect.left <= mouse[0] <= rate_btn.rect.right and rate_btn.rect.top <= mouse[1] <= rate_btn.rect.bottom:
                             game_state.UPGRADE_PTS -= 1
                             game_state.BULLET_RATE += 1
-                    if game_state.BULLET_SPEED < 30:
+                    if game_state.BULLET_SPEED < 29:
                         if speed_btn.rect.left <= mouse[0] <= speed_btn.rect.right and speed_btn.rect.top <= mouse[1] <= speed_btn.rect.bottom:
                             game_state.UPGRADE_PTS -= 1
                             game_state.BULLET_SPEED += 1
@@ -101,8 +101,9 @@ def upgrade_menu(game_surface):
         pygame.display.update()
 
 def inc_upgrade():
-    if game_state.SCORE >= game_state.UPGRADE_SCORE:
+    if game_state.SCORE >= game_state.UPGRADE_SCORE and game_state.UPGRADE_CNT < 52:
         game_state.UPGRADE_PTS += 1
+        game_state.UPGRADE_CNT += 1
         game_state.UPGRADE_SCORE += 100
 
 def draw_hud(game_surface):
