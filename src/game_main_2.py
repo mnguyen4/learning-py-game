@@ -1,6 +1,7 @@
 import pygame
 import sys
 import time
+import math
 from pygame.locals import *
 from characters import *
 import game_state
@@ -79,8 +80,8 @@ while True:
         entity.move()
     game_functions.draw_hud(DISPLAY_SURF)
     game_functions.inc_upgrade()
-    # scale speed on score
-    game_state.SPEED = (game_state.SCORE // 1000) + 5
+    # scale speed on kill count
+    game_state.SPEED = int(math.log10(game_state.KILL_CNT)) + 5 if game_state.KILL_CNT > 0 else 5
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
@@ -93,6 +94,7 @@ while True:
     if pygame.sprite.groupcollide(bullets, enemies, True, True):
         pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
         game_state.SCORE += 25
+        game_state.KILL_CNT += 1
 
     fps.tick(game_state.FRAME_RATE)
     if game_state.TIMER < game_state.RELOAD:
