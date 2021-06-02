@@ -104,7 +104,7 @@ def inc_upgrade():
     if game_state.SCORE >= game_state.UPGRADE_SCORE and game_state.UPGRADE_CNT < 52:
         game_state.UPGRADE_PTS += 1
         game_state.UPGRADE_CNT += 1
-        game_state.UPGRADE_SCORE += 100
+        game_state.UPGRADE_SCORE += game_state.UPGRADE_SCORE
 
 def draw_hud(game_surface):
     # display score
