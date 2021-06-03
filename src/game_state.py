@@ -35,15 +35,18 @@ SHOOT = pygame.USEREVENT + 3
 ENEMIES = [
     {
         "image": pygame.image.load("resources/car2.png"),
-        "dim": (68, 100)
+        "dim": (68, 100),
+        "base_speed": 5
     },
     {
         "image": pygame.image.load("resources/motorcycle.png"),
-        "dim": (20, 60)
+        "dim": (20, 60),
+        "base_speed": 6
     },
     {
         "image": pygame.image.load("resources/tractor.png"),
-        "dim": (78, 100)
+        "dim": (78, 100),
+        "base_speed": 3
     }
 ]
 BULLETS = [

@@ -11,7 +11,7 @@ class Lane(pygame.sprite.Sprite):
         self.surf = pygame.Surface((20, 40))
         self.rect = self.surf.get_rect(center=(game_state.SCREEN_WIDTH / 2, y_pos))
     def move(self):
-        self.rect.move_ip(0, 5)
+        self.rect.move_ip(0, 3)
         if (self.rect.bottom > game_state.SCREEN_HEIGHT + 20):
             self.rect.top = -20
 
@@ -21,9 +21,10 @@ class Enemy(pygame.sprite.Sprite):
         self.image = enemy["image"]
         self.surf = pygame.Surface(enemy["dim"])
         self.rect = self.surf.get_rect(center=(random.randint(40, game_state.SCREEN_WIDTH - 40), self.surf.get_height() * -1))
+        self.base_speed = enemy["base_speed"]
     
     def move(self):
-        self.rect.move_ip(0, game_state.SPEED)
+        self.rect.move_ip(0, self.base_speed + game_state.SPEED)
         if (self.rect.bottom > game_state.SCREEN_HEIGHT + self.surf.get_height()):
             game_state.SCORE += 1
             self.rect.top = 0

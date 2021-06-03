@@ -81,7 +81,7 @@ while True:
     game_functions.draw_hud(DISPLAY_SURF)
     game_functions.inc_upgrade()
     # scale speed on kill count
-    game_state.SPEED = int(math.log(game_state.KILL_CNT, 6)) + 5 if game_state.KILL_CNT > 0 else 5
+    game_state.SPEED = int(math.log(game_state.KILL_CNT, 6)) if game_state.KILL_CNT > 0 else 0
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
