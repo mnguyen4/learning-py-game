@@ -98,7 +98,7 @@ while True:
                 enemy.hit_points -= (game_state.BULLET_POWER + 1)
                 bullet.kill()
             else:
-                game_state.SCORE += enemy.base_score + round(game_state.SPEED)
+                game_state.SCORE += enemy.base_score + round(2 * game_state.SPEED)
                 enemy.kill()
                 game_state.KILL_CNT += 1
                 bullet.kill()
