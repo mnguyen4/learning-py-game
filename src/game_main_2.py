@@ -91,10 +91,14 @@ while True:
         for entity in all_sprites:
             entity.kill()
         time.sleep(2)
-    if pygame.sprite.groupcollide(bullets, enemies, True, True):
-        pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
-        game_state.SCORE += 5 + game_state.SPEED
-        game_state.KILL_CNT += 1
+    for bullet in bullets:
+        enemy = pygame.sprite.spritecollideany(bullet, enemies)
+        if enemy:
+            enemy.kill()
+            bullet.kill()
+            pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
+            game_state.SCORE += 5 + game_state.SPEED
+            game_state.KILL_CNT += 1
 
     fps.tick(game_state.FRAME_RATE)
     if game_state.TIMER < game_state.RELOAD:
