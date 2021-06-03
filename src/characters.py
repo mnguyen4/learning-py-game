@@ -28,7 +28,7 @@ class Enemy(pygame.sprite.Sprite):
     def move(self):
         self.rect.move_ip(0, self.base_speed + game_state.SPEED)
         if (self.rect.bottom > game_state.SCREEN_HEIGHT + self.surf.get_height()):
-            game_state.SCORE += 1
+            game_state.SCORE += round(1 + game_state.SPEED/self.base_speed)
             self.rect.top = 0
             self.rect.center = (random.randint(40, game_state.SCREEN_WIDTH - 40), self.surf.get_height() * -1)
     
