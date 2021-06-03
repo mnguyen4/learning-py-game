@@ -81,7 +81,7 @@ while True:
     game_functions.draw_hud(DISPLAY_SURF)
     game_functions.inc_upgrade()
     # scale speed on kill count
-    game_state.SPEED = math.log(game_state.KILL_CNT, 6) if game_state.KILL_CNT > 0 else 0
+    game_state.SPEED = math.log(game_state.KILL_CNT, 8) if game_state.KILL_CNT > 0 else 0
     # collision detection
     if pygame.sprite.spritecollideany(p1, enemies):
         pygame.mixer.Sound("resources/pop.wav").play()
@@ -103,6 +103,9 @@ while True:
                 game_state.KILL_CNT += 1
                 bullet.kill()
                 pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
+                if game_state.KILL_CNT >= game_state.NEXT_ENEMY:
+                    game_state.NEXT_ENEMY *= 2
+                    pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
             
 
     fps.tick(game_state.FRAME_RATE)
