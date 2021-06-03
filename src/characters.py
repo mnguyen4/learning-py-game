@@ -22,6 +22,7 @@ class Enemy(pygame.sprite.Sprite):
         self.surf = pygame.Surface(enemy["dim"])
         self.rect = self.surf.get_rect(center=(random.randint(40, game_state.SCREEN_WIDTH - 40), self.surf.get_height() * -1))
         self.base_speed = enemy["base_speed"]
+        self.base_score = enemy["base_score"]
     
     def move(self):
         self.rect.move_ip(0, self.base_speed + game_state.SPEED)
