@@ -94,11 +94,15 @@ while True:
     for bullet in bullets:
         enemy = pygame.sprite.spritecollideany(bullet, enemies)
         if enemy:
-            game_state.SCORE += enemy.base_score + round(game_state.SPEED)
-            enemy.kill()
-            game_state.KILL_CNT += 1
-            bullet.kill()
-            pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
+            if enemy.hit_points - (game_state.BULLET_POWER + 1) > 0:
+                enemy.hit_points -= (game_state.BULLET_POWER + 1)
+                bullet.kill()
+            else:
+                game_state.SCORE += enemy.base_score + round(game_state.SPEED)
+                enemy.kill()
+                game_state.KILL_CNT += 1
+                bullet.kill()
+                pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
             
 
     fps.tick(game_state.FRAME_RATE)

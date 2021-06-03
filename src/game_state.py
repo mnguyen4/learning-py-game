@@ -37,19 +37,22 @@ ENEMIES = [
         "image": pygame.image.load("resources/car2.png"),
         "dim": (68, 100),
         "base_speed": 5,
-        "base_score": 4
+        "base_score": 4,
+        "hit_points": 2
     },
     {
         "image": pygame.image.load("resources/motorcycle.png"),
         "dim": (20, 60),
         "base_speed": 6,
-        "base_score": 6
+        "base_score": 6,
+        "hit_points": 1
     },
     {
         "image": pygame.image.load("resources/tractor.png"),
         "dim": (78, 100),
         "base_speed": 3,
-        "base_score": 8
+        "base_score": 8,
+        "hit_points": 3
     }
 ]
 BULLETS = [
