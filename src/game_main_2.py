@@ -104,7 +104,7 @@ while True:
                 bullet.kill()
                 pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
                 if game_state.KILL_CNT >= game_state.NEXT_ENEMY:
-                    game_state.NEXT_ENEMY *= 2
+                    game_state.NEXT_ENEMY *= 3
                     pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
             
 
