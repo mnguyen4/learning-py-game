@@ -98,7 +98,7 @@ while True:
                 enemy.hit_points -= (game_state.BULLET_POWER + 1)
                 bullet.kill()
             else:
-                game_state.SCORE += enemy.base_score + round(2 * game_state.SPEED)
+                game_state.SCORE += round(enemy.base_score * (1 + game_state.SPEED))
                 enemy.kill()
                 game_state.KILL_CNT += 1
                 bullet.kill()
@@ -106,7 +106,6 @@ while True:
                 if game_state.KILL_CNT >= game_state.NEXT_ENEMY:
                     game_state.NEXT_ENEMY *= 3
                     pygame.event.post(pygame.event.Event(game_state.SPAWN_ENEMY))
-            
 
     fps.tick(game_state.FRAME_RATE)
     if game_state.TIMER < game_state.RELOAD:
