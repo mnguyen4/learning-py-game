@@ -30,7 +30,9 @@ def menu(game_surface):
     game_surface.blit(menu_txt, menu_txt.get_rect(center=(game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 3)))
     resume_btn = Button(game_state.RESUME_IMG, game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 2)
     game_surface.blit(resume_btn.image, resume_btn.rect)
-    quit_btn = Button(game_state.QUIT_IMG, game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 2 + 50)
+    restart_btn = Button(game_state.RESTART_IMG, game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 2 + 50)
+    game_surface.blit(restart_btn.image, restart_btn.rect)
+    quit_btn = Button(game_state.QUIT_IMG, game_state.SCREEN_WIDTH / 2, game_state.SCREEN_HEIGHT / 2 + 100)
     game_surface.blit(quit_btn.image, quit_btn.rect)
     while game_state.MENU:
         for event in pygame.event.get():
@@ -44,6 +46,9 @@ def menu(game_surface):
                 mouse = pygame.mouse.get_pos()
                 if resume_btn.rect.left <= mouse[0] <= resume_btn.rect.right and resume_btn.rect.top <= mouse[1] <= resume_btn.rect.bottom:
                     game_state.MENU = False
+                if restart_btn.rect.left <= mouse[0] <= restart_btn.rect.right and restart_btn.rect.top <= mouse[1] <= restart_btn.rect.bottom:
+                    game_state.MENU = False
+                    pygame.event.post(pygame.event.Event(game_state.RESTART))
                 if quit_btn.rect.left <= mouse[0] <= quit_btn.rect.right and quit_btn.rect.top <= mouse[1] <= quit_btn.rect.bottom:
                     pygame.event.post(pygame.event.Event(QUIT))
         fps.tick(game_state.FRAME_RATE)

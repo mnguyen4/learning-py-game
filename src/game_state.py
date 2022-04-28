@@ -32,6 +32,7 @@ BULLET_POWER = 0
 INC_SPEED = pygame.USEREVENT + 1
 SPAWN_ENEMY = pygame.USEREVENT + 2
 SHOOT = pygame.USEREVENT + 3
+RESTART = pygame.USEREVENT + 4
 # image cache
 ENEMIES = [
     {
@@ -83,6 +84,7 @@ PLAYER_IMG = pygame.image.load("resources/car1.png")
 TITLE_IMG = pygame.image.load("resources/title.png")
 GAMEOVER_IMG = pygame.image.load("resources/gameover.png")
 RESUME_IMG = pygame.image.load("resources/resume.png")
+RESTART_IMG = pygame.image.load("resources/restart.png")
 QUIT_IMG = pygame.image.load("resources/quit.png")
 BG_IMG = pygame.image.load("resources/background.png")
 MENU_IMG = pygame.image.load("resources/menu.png")

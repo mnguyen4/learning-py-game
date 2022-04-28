@@ -66,6 +66,9 @@ while True:
                 all_sprites.add(bullet)
                 bullets.add(bullet)
                 game_state.FIRED += 1
+        if event.type == game_state.RESTART:
+            print("Restart event triggered")
+            # TODO: Add restart handler
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
